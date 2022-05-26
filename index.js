@@ -40,10 +40,35 @@ async function run() {
       res.send(tool);
     });
 
+    app.get("/purchasing", async (req, res) => {
+      const customer = req.query.customer;
+      const decodedEmail = req.decoded.email;
+      if (customer === decodedEmail) {
+        const query = { customer: customer };
+        const purchasing = await purchaseCollection.find(query).toArray();
+        return res.send(purchasing);
+      }
+    });
+
+    app.get("/purchasing/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const purchasing = await purchaseCollection.findOne(query);
+      res.send(purchasing);
+    });
+
     app.post("/purchasing", async (req, res) => {
       const purchasing = req.body;
+      const query = {
+        tool: purchasing.tool,
+        customer: purchasing.tool,
+      };
+      const exists = await purchaseCollection.findOne(query);
+      if (exists) {
+        return res.send({ success: false, purchasing: exists });
+      }
       const result = await purchaseCollection.insertOne(purchasing);
-      res.send(result);
+      return res.send({ success: true, result });
     });
   } finally {
   }
