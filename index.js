@@ -25,6 +25,7 @@ async function run() {
     const purchaseCollection = client
       .db("perfect_garden_tools")
       .collection("purchasing");
+    const userCollection = client.db("perfect_garden_tools").collection("user");
 
     app.get("/tool", async (req, res) => {
       const query = {};
