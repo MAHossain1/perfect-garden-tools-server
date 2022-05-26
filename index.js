@@ -40,15 +40,15 @@ async function run() {
       res.send(tool);
     });
 
-    app.get("/purchasing", async (req, res) => {
-      const customer = req.query.customer;
-      const decodedEmail = req.decoded.email;
-      if (customer === decodedEmail) {
-        const query = { customer: customer };
-        const purchasing = await purchaseCollection.find(query).toArray();
-        return res.send(purchasing);
-      }
-    });
+    // app.get("/purchasing", async (req, res) => {
+    //   const customer = req.query.customer;
+    //   const decodedEmail = req.decoded.email;
+    //   if (customer === decodedEmail) {
+    //     const query = { customer: customer };
+    //     const purchasing = await purchaseCollection.find(query).toArray();
+    //     return res.send(purchasing);
+    //   }
+    // });
 
     app.get("/purchasing/:id", async (req, res) => {
       const id = req.params.id;
