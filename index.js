@@ -22,6 +22,9 @@ async function run() {
     const toolCollection = client
       .db("perfect_garden_tools")
       .collection("tools");
+    const purchaseCollection = client
+      .db("perfect_garden_tools")
+      .collection("purchasing");
 
     app.get("/tool", async (req, res) => {
       const query = {};
@@ -35,6 +38,12 @@ async function run() {
       const tool = await toolCollection.findOne(query);
       console.log(tool);
       res.send(tool);
+    });
+
+    app.post("/purchasing", async (req, res) => {
+      const purchasing = req.body;
+      const result = await purchaseCollection.insertOne(purchasing);
+      res.send(result);
     });
   } finally {
   }
