@@ -76,7 +76,7 @@ async function run() {
 }
 run().catch(console.dir);
 
-// a lot of reaming
+// a lot of things reaming
 
 app.get("/", (req, res) => {
   res.send("Hello from PerFectGarden Tool");
